@@ -15,9 +15,7 @@ const CommentInput = () => {
             placeholder="댓글을 입력해주세요."
             required
           />
-          <button className="bg-brown1 hover:bg-brown2 text-white py-2 px-4">
-            등록
-          </button>
+          <button className="bg-brown1 button">등록</button>
         </div>
       </form>
     </div>
