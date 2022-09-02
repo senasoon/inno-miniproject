@@ -1,8 +1,15 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Detail from './views/Detail';
 
 function App() {
-  return <div></div>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/detail" element={<Detail />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

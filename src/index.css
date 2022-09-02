@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .card {
+    @apply w-max bg-white border border-slate-200 shadow-lg m-4 p-4
+  }
+}
+
 body {
+  max-width: 1200px;
+  margin: 0 auto;
   background-color: #fffbe9;
 }
