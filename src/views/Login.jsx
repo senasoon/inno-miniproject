@@ -1,14 +1,14 @@
 import React from 'react';
 import Header from '../components/header/Header';
-import Form from '../components/form/Form';
+import SignIn from '../components/sign-in/SignIn';
 
-const Post = () => {
+const Login = () => {
   return (
     <>
       <Header />
-      <Form />
+      <SignIn />
     </>
   );
 };
 
-export default Post;
+export default Login;
