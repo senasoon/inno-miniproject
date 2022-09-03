@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Form = () => {
+
   return (
     <div className='pt-24 grid place-content-center'>
       <div className='w-80 h-96 bg-white shadow-md flex flex-col justify-center items-center'>
@@ -15,6 +16,7 @@ const Form = () => {
       </div>
     </div>
   );
+
 };
 
 export default Form;

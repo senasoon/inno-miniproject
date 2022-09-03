@@ -1,6 +1,7 @@
 import React from "react";
 
 const Card = () => {
+
   return (
     <div className='bg-white w-48 h-56 shadow-md'>
       <div className='mt-4 w-40 h-40 bg-gray-300 m-auto'></div>

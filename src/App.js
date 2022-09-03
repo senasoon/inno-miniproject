@@ -1,10 +1,14 @@
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Detail from './views/Detail';
 
 function App() {
   return (
-    <div>
-      App
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/detail" element={<Detail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
