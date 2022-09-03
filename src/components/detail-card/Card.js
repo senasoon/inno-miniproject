@@ -3,9 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const Card = () => {
+  const [cardContent, setCardContent] = useState('');
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editCard, setEditCard] = useState('');
+
   const param = useParams();
   const navigate = useNavigate();
-  const [cardContent, setCardContent] = useState('');
 
   const fetchCard = async () => {
     const { data } = await axios.get(`http://localhost:3001/post/${param.id}`);
@@ -16,34 +19,109 @@ const Card = () => {
     if (
       confirm('삭제된 데이터는 복구되지 않습니다. 게시글을 삭제 하시겠습니까?')
     ) {
-      axios.delete(`http://localhost:3001/post/${param.id}`);
+      {
+        axios.delete(`http://localhost:3001/post/${param.id}`);
+      }
+      alert('삭제되었습니다. 홈으로 이동합니다.');
+      navigate('/');
     }
-    alert('삭제되었습니다. 홈으로 이동합니다.');
-    navigate('/');
+    return;
+  };
+
+  const editCardContent = async (edit) => {
+    await axios.patch(`http://localhost:3001/post/${param.id}`, edit);
+    alert('게시글이 수정 되었습니다.');
+    fetchCard();
   };
 
   useEffect(() => {
     fetchCard();
   }, []);
 
+  const onChangeHandler = ({ target: { name, value } }) => {
+    setEditCard({
+      ...editCard,
+      [name]: value,
+    });
+  };
+
   return (
     <div className="card">
-      <div className="flex justify-between">
-        <p className="py-2">{cardContent.nickName}</p>
-        <div>
-          <button className="p-2">수정</button>
-          <button onClick={deleteHandler} className="py-2">
-            삭제
-          </button>
-        </div>
-      </div>
-      <img
-        src={cardContent.imgUrl}
-        alt="닉네임이 등록한 이미지"
-        className="w-[25rem]"
-      />
-      <p className="font-semibold py-2">{cardContent.title}</p>
-      <p className="font-normal pb-4 w-[25rem]">{cardContent.content}</p>
+      {isEditMode ? (
+        <>
+          <div className="flex justify-between">
+            <p className="py-2">{cardContent.nickName}</p>
+            <div>
+              <button
+                onClick={() => {
+                  setIsEditMode(false);
+                }}
+                className="p-2"
+              >
+                취소
+              </button>
+              <button
+                onClick={() => {
+                  editCardContent(editCard);
+                }}
+                className="py-2"
+              >
+                완료
+              </button>
+            </div>
+          </div>
+          <img
+            src={cardContent.imgUrl}
+            alt="닉네임이 등록한 이미지"
+            className="w-[25rem]"
+          />
+          <form>
+            <input
+              name="title"
+              type="text"
+              defaultValue={cardContent.title}
+              className="block font-semibold py-2 focus:outline-none"
+              placeholder="수정할 제목을 입력해주세요."
+              onChange={onChangeHandler}
+            />
+            <input
+              name="content"
+              type="text"
+              defaultValue={cardContent.content}
+              className=" block font-normal pb-4 w-[25rem] focus:outline-none"
+              placeholder="수정할 내용을 입력해주세요."
+              onChange={onChangeHandler}
+              autoFocus
+            />
+          </form>
+        </>
+      ) : (
+        <>
+          <div className="flex justify-between">
+            <p className="py-2">{cardContent.nickName}</p>
+            <div>
+              <button
+                onClick={() => {
+                  setIsEditMode(true);
+                }}
+                className="p-2"
+              >
+                수정
+              </button>
+              <button onClick={deleteHandler} className="py-2">
+                삭제
+              </button>
+            </div>
+          </div>
+          <img
+            src={cardContent.imgUrl}
+            alt="닉네임이 등록한 이미지"
+            className="w-[25rem]"
+          />
+          <p className="font-semibold py-2">{cardContent.title}</p>
+          <p className="font-normal pb-4 w-[25rem]">{cardContent.content}</p>
+        </>
+      )}
     </div>
   );
 };
