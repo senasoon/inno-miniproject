@@ -1,0 +1,38 @@
+{
+  "post": [
+    {
+      "id": 1,
+      "title": "여기 제목",
+      "content": "여기 내용이 들어갑니다. 사진을 올리고 내용이 들어갑니다.",
+      "imgUrl" : "https://images.unsplash.com/photo-1530121512448-fd5dd6cc5967?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1541&q=80"
+    },
+    {
+      "id": 2,
+      "title": "여기 제목2",
+      "content": "여기 내용이 들어갑니다. 사진을 올리고 내용이 들어갑니다.",
+      "imgUrl" : "https://images.unsplash.com/photo-1530121512448-fd5dd6cc5967?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1541&q=80"
+    }
+  ],
+  "comment": [
+    {
+      "id": 1,
+      "content": "여기에 댓글이 들어갑니다. 댓글을 작성할 수 있습니다.",
+      "postId": 1
+    },
+    {
+      "id": 2,
+      "content": "여기에 댓글이 들어갑니다. 댓글을 작성할 수 있습니다.",
+      "postId": 1
+    },
+    {
+      "id": 3,
+      "content": "여기에 댓글이 들어갑니다. 댓글을 작성할 수 있습니다.",
+      "postId": 2
+    },
+    {
+      "id": 4,
+      "content": "여기에 댓글이 들어갑니다. 댓글을 작성할 수 있습니다.",
+      "postId": 2
+    }
+  ]
+}
