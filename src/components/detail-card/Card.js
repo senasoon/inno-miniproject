@@ -1,24 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Card = () => {
+  const [cardcontent, setCardContent] = useState('');
+
+  const fetchCard = async () => {
+    const { data } = await axios.get(`http://localhost:3001/post/1`);
+    setCardContent(data);
+    console.log(data);
+  };
+
+  const deleteHandler = () => {};
+
+  useEffect(() => {
+    fetchCard();
+  }, []);
+
   return (
     <div className="card">
       <div className="flex justify-between">
-        <p className="py-2">닉네임</p>
+        <p className="py-2">{cardcontent.nickName}</p>
         <div>
           <button className="p-2">수정</button>
-          <button className="py-2">삭제</button>
+          <button onClick={deleteHandler} className="py-2">
+            삭제
+          </button>
         </div>
       </div>
       <img
-        src="https://images.unsplash.com/photo-1530121512448-fd5dd6cc5967?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1541&q=80"
+        src={cardcontent.imgUrl}
         alt="닉네임이 등록한 이미지"
         className="w-[25rem]"
       />
-      <p className="font-semibold py-2">바다</p>
-      <p className="font-normal pb-4 w-[25rem]">
-        여기에 내용이 들어갑니다. 내용이 들어갑니다.
-      </p>
+      <p className="font-semibold py-2">{cardcontent.title}</p>
+      <p className="font-normal pb-4 w-[25rem]">{cardcontent.content}</p>
     </div>
   );
 };
