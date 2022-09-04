@@ -31,7 +31,12 @@ const Card = () => {
   const editCardContent = async (edit) => {
     await axios.patch(`http://localhost:3001/post/${param.id}`, edit);
     alert('게시글이 수정 되었습니다.');
+    resetCardContent();
+  };
+
+  const resetCardContent = () => {
     fetchCard();
+    setIsEditMode(false);
   };
 
   useEffect(() => {
