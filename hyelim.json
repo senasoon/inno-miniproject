@@ -81,26 +81,6 @@
       "password": "11"
     }
   ],
-  "post": [
-    {
-      "id": 1,
-      "nickName": "관리자",
-      "title": "제목입니다~!!!!",
-      "content": "여기 내용이 들어갑니다.수정",
-      "imgUrl": "https://images.unsplash.com/photo-1530121512448-fd5dd6cc5967?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1541&q=80",
-      "edit": {
-        "title": "a",
-        "content": "a"
-      }
-    },
-    {
-      "id": 2,
-      "nickName": "테스트",
-      "title": "여기 제목2",
-      "content": "여기 내용이 들어갑니다. 사진을 올리고 내용이 들어갑니다.",
-      "imgUrl": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2886&q=80"
-    }
-  ],
   "comment": [
     {
       "id": 1,

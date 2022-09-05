@@ -14,7 +14,7 @@ const CardList = () => {
   const posts = useSelector((state) => state.posts.posts);
 
   return (
-    <div className="mx-24 mb-8 pt-20 flex flex-row  grid grid-cols-4 gap-y-6 justify-items-center">
+    <div className="mx-24 mb-8 pt-8 flex flex-row  grid grid-cols-4 gap-y-6 justify-items-center">
       {posts?.map((post) => (
         <Card {...post} key={post.id} />
       ))}
