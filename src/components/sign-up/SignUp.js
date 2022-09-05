@@ -99,7 +99,6 @@ const SignUp = () => {
         <div className="flex items-center justify-center mt-6">
           <Link
             to={'/login'}
-            target="_blank"
             className="inline-flex w-30 h-8 items-center text-xs text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white"
           >
             <span className="ml-2">
