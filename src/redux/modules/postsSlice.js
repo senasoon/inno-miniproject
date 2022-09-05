@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { postApi } from '../../shared/api/postApi';
 
@@ -16,8 +17,8 @@ export const __getPosts = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
-)
+  },
+);
 
 export const __addPosts = createAsyncThunk(
   'postsSlice/ADD_POSTS',
@@ -28,8 +29,8 @@ export const __addPosts = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
-)
+  },
+);
 
 export const postsSlice = createSlice({
   name: 'posts',
@@ -37,18 +38,18 @@ export const postsSlice = createSlice({
   reducers: {},
   extraReducers: {
     [__getPosts.pending]: (state) => {
-      state.isLoading = true; 
+      state.isLoading = true;
     },
     [__getPosts.fulfilled]: (state, action) => {
-      state.isLoading = false; 
+      state.isLoading = false;
       state.posts = action.payload;
     },
     [__getPosts.rejected]: (state, action) => {
       state.isLoading = false;
-      state.error = action.payload; 
+      state.error = action.payload;
     },
     [__addPosts.pending]: (state) => {
-      state.isLoading = true; 
+      state.isLoading = true;
     },
     [__addPosts.fulfilled]: (state, action) => {
       state.isLoading = false;
@@ -58,7 +59,7 @@ export const postsSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-  }
+  },
 });
 
 export const {} = postsSlice.actions;

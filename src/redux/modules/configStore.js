@@ -1,4 +1,4 @@
-// src/redux/config/configStore.js
+/* eslint-disable */
 
 import { configureStore } from '@reduxjs/toolkit';
 
