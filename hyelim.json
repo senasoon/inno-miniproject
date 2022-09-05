@@ -71,5 +71,14 @@
       "imgUrl": "http://m.clover4989.co.kr/file_data/clover4989/2016/11/14/bbb14353792980eb65a01b99f56b44cc.jpg"
     }
   ],
-  "users": [{ "id": "test", "password": "test" }]
+  "users": [
+    {
+      "id": "test",
+      "password": "test"
+    },
+    {
+      "id": "test2",
+      "password": "11"
+    }
+  ]
 }
