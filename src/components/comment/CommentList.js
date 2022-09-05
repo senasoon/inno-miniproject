@@ -5,7 +5,6 @@ import { FaPencilAlt, FaTrash } from 'react-icons/fa';
 
 const CommentList = () => {
   const [getComment, setGetComment] = useState('');
-  console.log(getComment[0]);
 
   const param = useParams();
 
@@ -14,6 +13,23 @@ const CommentList = () => {
       `http://localhost:3001/comment/?postId=${param.id}`,
     );
     setGetComment(data);
+  };
+
+  // const resetCommentList = () => {
+  //   fetchComments();
+  // }
+
+  const deleteHandler = (comment) => {
+    if (
+      confirm('삭제된 데이터는 복구되지 않습니다. 게시글을 삭제 하시겠습니까?')
+    ) {
+      {
+        axios.delete(`http://localhost:3001/comment/${comment}`);
+      }
+      alert('삭제되었습니다.');
+      fetchComments();
+    }
+    return;
   };
 
   useEffect(() => {
@@ -35,7 +51,11 @@ const CommentList = () => {
                 <button className="mr-2">
                   <FaPencilAlt />
                 </button>
-                <button>
+                <button
+                  onClick={() => {
+                    deleteHandler(comment.id);
+                  }}
+                >
                   <FaTrash />
                 </button>
               </div>

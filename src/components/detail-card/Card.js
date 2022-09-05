@@ -51,7 +51,7 @@ const Card = () => {
   };
 
   return (
-    <div className="card">
+    <div className="card h-[34rem]">
       {isEditMode ? (
         <>
           <div className="flex justify-between">
@@ -75,11 +75,13 @@ const Card = () => {
               </button>
             </div>
           </div>
-          <img
-            src={cardContent.imgUrl}
-            alt="닉네임이 등록한 이미지"
-            className="w-[25rem]"
-          />
+          <div className="overflow-hidden w-[25rem] h-[25rem]">
+            <img
+              src={cardContent.imgUrl}
+              alt="닉네임이 등록한 이미지"
+              className="w-full h-full object-cover"
+            />
+          </div>
           <form>
             <input
               name="title"
@@ -118,11 +120,13 @@ const Card = () => {
               </button>
             </div>
           </div>
-          <img
-            src={cardContent.imgUrl}
-            alt="닉네임이 등록한 이미지"
-            className="w-[25rem]"
-          />
+          <div className="overflow-hidden w-[25rem] h-[25rem]">
+            <img
+              src={cardContent.imgUrl}
+              alt="닉네임이 등록한 이미지"
+              className="w-full h-full object-cover"
+            />
+          </div>
           <p className="font-semibold py-2">{cardContent.title}</p>
           <p className="font-normal pb-4 w-[25rem]">{cardContent.content}</p>
         </>
