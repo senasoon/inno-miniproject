@@ -5,11 +5,9 @@ import CommentList from './CommentList';
 
 const Comment = () => {
   return (
-    <div>
-      <div className="card w-[34rem] h-[32rem]">
-        <CommentInput />
-        <CommentList />
-      </div>
+    <div className="card w-[34rem] h-[34rem]">
+      <CommentInput />
+      <CommentList />
     </div>
   );
 };
