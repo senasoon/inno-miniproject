@@ -40,9 +40,9 @@ export const __loginThunk = createAsyncThunk(
         if (user.password === payload.password) {
           const token = generateJWTToken(user.id);
           setCookie('token', token);
+          localStorage.setItem('id', user.id);
           alert('로그인 성공!');
-          document.location.href = '/';
-          return thunkAPI.fulfillWithValue(data);
+          return (document.location.href = '/');
         } else {
           alert('비번틀림');
           return (document.location.href = '/login');
@@ -58,6 +58,7 @@ export const __loginThunk = createAsyncThunk(
 );
 export const logoutUserThunk = createAsyncThunk('LOGOUT_USER', () => {
   deleteCookie('token');
+  localStorage.removeItem('id');
   return (document.location.href = '/');
 });
 //login
@@ -98,7 +99,8 @@ export const userSlice = createSlice({
     },
     [__loginThunk.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.users = action.payload;
+      console.log(action.payload.id, '로그인 페이로드'); //id
+      state.users.id = action.payload.id;
     },
     [__loginThunk.rejected]: (state, action) => {
       state.isLoading = false;

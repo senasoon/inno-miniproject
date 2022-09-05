@@ -11,11 +11,14 @@ const Header = () => {
   const loginButtonHandler = () => {
     if (token() !== null) {
       cookies.remove('token');
+      localStorage.removeItem('id');
       navigate('/');
     } else {
       navigate('/login');
     }
   };
+
+  const id = localStorage.getItem('id');
 
   const moveMain = () => {
     navigate('/');
@@ -28,12 +31,12 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 h-14 left-0 bg-brown3 flex flex-row justify-between px-10 items-center">
+    <header className="h-14 w-screen bg-brown3 flex flex-row justify-between px-10 items-center">
       <button onClick={moveMain}>로고</button>
       <div>
         {token() ? (
           <>
-            <span className="mr-4 text-xs">@@@님의 일상을 등록해보세요!</span>
+            <span className="mr-4 text-xs">{id}님의 일상을 등록해보세요!</span>
             <button
               onClick={moveAddPost}
               className="mr-4 text-xs hover:text-white"
