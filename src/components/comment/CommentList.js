@@ -22,20 +22,26 @@ const CommentList = () => {
 
   return (
     <div>
-      <div className="flex justify-between mt-2">
-        <div className="flex">
-          <p className="font-semibold pr-2">닉네임</p>
-          <p className="font-normal">여기에 댓글이 들어갑니다.</p>
-        </div>
-        <div>
-          <button className="mr-2">
-            <FaPencilAlt />
-          </button>
-          <button>
-            <FaTrash />
-          </button>
-        </div>
-      </div>
+      {getComment
+        ? getComment.map((comment) => (
+            <div key={comment.id} className="flex justify-between mt-2">
+              <div className="flex">
+                <p className="font-semibold pr-2">
+                  {comment ? comment.nickName : 'null'}
+                </p>
+                <p className="font-normal">{comment.content}</p>
+              </div>
+              <div>
+                <button className="mr-2">
+                  <FaPencilAlt />
+                </button>
+                <button>
+                  <FaTrash />
+                </button>
+              </div>
+            </div>
+          ))
+        : null}
     </div>
   );
 };
