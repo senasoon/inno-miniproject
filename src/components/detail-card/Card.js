@@ -55,7 +55,7 @@ const Card = () => {
       {isEditMode ? (
         <>
           <div className="flex justify-between">
-            <p className="py-2">{cardContent.nickName}</p>
+            <p className="py-2">{cardContent.nickname}</p>
             <div>
               <button
                 onClick={() => {
@@ -105,7 +105,7 @@ const Card = () => {
       ) : (
         <>
           <div className="flex justify-between">
-            <p className="py-2">{cardContent.nickName}</p>
+            <p className="py-2">{cardContent.nickname}</p>
             <div>
               <button
                 onClick={() => {

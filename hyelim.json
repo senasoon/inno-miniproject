@@ -84,25 +84,25 @@
   "comment": [
     {
       "id": 1,
-      "nickName": "닉네임1",
+      "nickname": "닉네임1",
       "content": "첫번째 댓글입니다.",
       "postId": 1
     },
     {
       "id": 2,
-      "nickName": "닉네임2",
+      "nickname": "닉네임2",
       "content": "여기에 댓글이 들어갑니다. 두번째 댓글입니다.",
       "postId": 1
     },
     {
       "id": 3,
-      "nickName": "닉네임3",
+      "nickname": "닉네임3",
       "content": "여기에 댓글이 들어갑니다. 댓글을 작성할 수 있습니다.",
       "postId": 2
     },
     {
       "id": 4,
-      "nickName": "닉네임4",
+      "nickname": "닉네임4",
       "content": "여기에 댓글이 들어갑니다. 댓글을 작성할 수 있습니다.",
       "postId": 2
     }

@@ -48,7 +48,7 @@ const CommentList = () => {
                 <div key={comment.id} className="flex justify-between mt-2">
                   <div className="flex">
                     <p className="font-semibold pr-2">
-                      {comment ? comment.nickName : 'null'}
+                      {comment ? comment.nickname : 'null'}
                     </p>
                     <p className="font-normal">{comment.content}</p>
                   </div>
