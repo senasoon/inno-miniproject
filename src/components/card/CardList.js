@@ -7,15 +7,17 @@ import { __getPosts } from '../../redux/modules/postsSlice';
 const CardList = () => {
   const dispatch = useDispatch();
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(__getPosts());
-    }, [dispatch])
+  }, [dispatch]);
 
-  const posts = useSelector(state => state.posts.posts);
+  const posts = useSelector((state) => state.posts.posts);
 
   return (
-    <div className='mx-24 mb-8 pt-20 flex flex-row  grid grid-cols-4 gap-y-6 justify-items-center'>
-      {posts?.map((post)=> <Card {...post} key={post.id} />)}
+    <div className="mx-24 mb-8 pt-20 flex flex-row  grid grid-cols-4 gap-y-6 justify-items-center">
+      {posts?.map((post) => (
+        <Card {...post} key={post.id} />
+      ))}
     </div>
   );
 };
