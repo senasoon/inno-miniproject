@@ -3,6 +3,7 @@ import axios from 'axios';
 // import jwtDecode from 'jwt-decode';
 import { setCookie, deleteCookie } from '../../shared/Cookie';
 import { generateJWTToken } from '../../shared/JWT';
+//import instance from '../../shared/api';
 
 const initialState = {
   users: [],

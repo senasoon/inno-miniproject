@@ -3,9 +3,11 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { FaPencilAlt, FaTrash } from 'react-icons/fa';
 
+import EditComment from './EditComment';
+
 const CommentList = () => {
-  const [getComment, setGetComment] = useState('');
-  console.log(getComment[0]);
+  const [getComment, setGetComment] = useState();
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const param = useParams();
 
@@ -16,26 +18,59 @@ const CommentList = () => {
     setGetComment(data);
   };
 
+  const deleteHandler = (comment) => {
+    if (
+      confirm('삭제된 데이터는 복구되지 않습니다. 게시글을 삭제 하시겠습니까?')
+    ) {
+      {
+        axios.delete(`http://localhost:3001/comment/${comment}`);
+      }
+      alert('삭제되었습니다.');
+      fetchComments();
+    }
+    return;
+  };
+
+  const editHandler = () => {
+    setIsEditMode(true);
+  };
+
   useEffect(() => {
     fetchComments();
   }, []);
 
   return (
     <div>
-      <div className="flex justify-between mt-2">
-        <div className="flex">
-          <p className="font-semibold pr-2">닉네임</p>
-          <p className="font-normal">여기에 댓글이 들어갑니다.</p>
-        </div>
-        <div>
-          <button className="mr-2">
-            <FaPencilAlt />
-          </button>
-          <button>
-            <FaTrash />
-          </button>
-        </div>
-      </div>
+      {!isEditMode ? (
+        <>
+          {getComment
+            ? getComment.map((comment) => (
+                <div key={comment.id} className="flex justify-between mt-2">
+                  <div className="flex">
+                    <p className="font-semibold pr-2">
+                      {comment ? comment.nickName : 'null'}
+                    </p>
+                    <p className="font-normal">{comment.content}</p>
+                  </div>
+                  <div>
+                    <button className="mr-2" onClick={editHandler}>
+                      <FaPencilAlt />
+                    </button>
+                    <button
+                      onClick={() => {
+                        deleteHandler(comment.id);
+                      }}
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                </div>
+              ))
+            : null}
+        </>
+      ) : (
+        <EditComment fetchComments={fetchComments} />
+      )}
     </div>
   );
 };
