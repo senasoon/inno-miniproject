@@ -11,11 +11,14 @@ const Header = () => {
   const loginButtonHandler = () => {
     if (token() !== null) {
       cookies.remove('token');
+      localStorage.removeItem('id');
       navigate('/');
     } else {
       navigate('/login');
     }
   };
+
+  const id = localStorage.getItem('id');
 
   const moveMain = () => {
     navigate('/');
@@ -33,7 +36,7 @@ const Header = () => {
       <div>
         {token() ? (
           <>
-            <span className="mr-4 text-xs">@@@님의 일상을 등록해보세요!</span>
+            <span className="mr-4 text-xs">{id}님의 일상을 등록해보세요!</span>
             <button
               onClick={moveAddPost}
               className="mr-4 text-xs hover:text-white"
