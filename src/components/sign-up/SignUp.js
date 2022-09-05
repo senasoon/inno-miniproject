@@ -30,8 +30,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className="justify-center">
-      <div className="justify-items-center place-items-center flex flex-col w-full mt-40 max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
+    <div className="pt-28 grid place-content-center grid-cols-6 gap-4">
+      <div className="col-start-3 col-span-3 place-items-center flex flex-col mt-30 max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
         <div className="self-center mb-6 text-xl font-bold text-gray-600 sm:text-2xl dark:text-white">
           회원가입
         </div>
@@ -43,7 +43,7 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="id"
-                  className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-brown1 focus:border-transparent"
+                  className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-brown1 focus:border-transparent"
                   onChange={(event) => {
                     setId(event.target.value);
                   }}
@@ -56,7 +56,7 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="password"
-                  className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-brown1 focus:border-transparent"
+                  className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-brown1 focus:border-transparent"
                   onChange={(event) => {
                     setPw(event.target.value);
                   }}
@@ -69,7 +69,7 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="password2"
-                  className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-brown1 focus:border-transparent"
+                  className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-brown1 focus:border-transparent"
                   onChange={(event) => {
                     setPw2(event.target.value);
                   }}
@@ -100,7 +100,7 @@ const SignUp = () => {
           <Link
             to={'/login'}
             target="_blank"
-            className="inline-flex items-center text-xs text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white"
+            className="inline-flex w-30 h-8 items-center text-xs text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white"
           >
             <span className="ml-2">
               계정이 있으신가요?<b>로그인</b>
