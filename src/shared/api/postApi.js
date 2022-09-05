@@ -7,12 +7,12 @@ const instance = axios.create({
 // instance.defaults.headers.common['Authorization'] = USER_TOKEN;
 
 export const postApi = {
-  getPost: () => instance.get('/data'),
+  getPost: () => instance.get('/post'),
 
   addPost: (contents) =>
     instance({
       method: 'POST',
-      url: '/data',
+      url: '/post',
       mode: 'cors',
       headers: {
         'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.

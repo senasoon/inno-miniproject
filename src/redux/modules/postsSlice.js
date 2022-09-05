@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { postApi } from '../../shared/api/postApi';
 
@@ -62,5 +61,5 @@ export const postsSlice = createSlice({
   },
 });
 
-export const {} = postsSlice.actions;
+// export const {} = postsSlice.actions;
 export default postsSlice.reducer;

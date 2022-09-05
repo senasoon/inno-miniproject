@@ -5,10 +5,12 @@ import Main from './views/Main';
 import Post from './views/Post';
 import Login from './views/Login';
 import Register from './views/Register';
+import Header from './components/header/Header';
 
 function App() {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/detail/:id" element={<Detail />} />
