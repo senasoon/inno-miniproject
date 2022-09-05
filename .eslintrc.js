@@ -17,12 +17,12 @@ module.exports = {
   rules: {
     'prettier/prettier': [
       'error',
-        {
-          endOfLine: 'auto',
+      {
+        endOfLine: 'auto',
       },
-        {
-          useTabs: false,
-      }
-    ]
+      {
+        useTabs: false,
+      },
+    ],
   },
 };
