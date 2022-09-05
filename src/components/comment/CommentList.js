@@ -3,8 +3,11 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { FaPencilAlt, FaTrash } from 'react-icons/fa';
 
+import EditComment from './EditComment';
+
 const CommentList = () => {
-  const [getComment, setGetComment] = useState('');
+  const [getComment, setGetComment] = useState();
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const param = useParams();
 
@@ -14,10 +17,6 @@ const CommentList = () => {
     );
     setGetComment(data);
   };
-
-  // const resetCommentList = () => {
-  //   fetchComments();
-  // }
 
   const deleteHandler = (comment) => {
     if (
@@ -32,36 +31,46 @@ const CommentList = () => {
     return;
   };
 
+  const editHandler = () => {
+    setIsEditMode(true);
+  };
+
   useEffect(() => {
     fetchComments();
   }, []);
 
   return (
     <div>
-      {getComment
-        ? getComment.map((comment) => (
-            <div key={comment.id} className="flex justify-between mt-2">
-              <div className="flex">
-                <p className="font-semibold pr-2">
-                  {comment ? comment.nickName : 'null'}
-                </p>
-                <p className="font-normal">{comment.content}</p>
-              </div>
-              <div>
-                <button className="mr-2">
-                  <FaPencilAlt />
-                </button>
-                <button
-                  onClick={() => {
-                    deleteHandler(comment.id);
-                  }}
-                >
-                  <FaTrash />
-                </button>
-              </div>
-            </div>
-          ))
-        : null}
+      {!isEditMode ? (
+        <>
+          {getComment
+            ? getComment.map((comment) => (
+                <div key={comment.id} className="flex justify-between mt-2">
+                  <div className="flex">
+                    <p className="font-semibold pr-2">
+                      {comment ? comment.nickName : 'null'}
+                    </p>
+                    <p className="font-normal">{comment.content}</p>
+                  </div>
+                  <div>
+                    <button className="mr-2" onClick={editHandler}>
+                      <FaPencilAlt />
+                    </button>
+                    <button
+                      onClick={() => {
+                        deleteHandler(comment.id);
+                      }}
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                </div>
+              ))
+            : null}
+        </>
+      ) : (
+        <EditComment fetchComments={fetchComments} />
+      )}
     </div>
   );
 };
