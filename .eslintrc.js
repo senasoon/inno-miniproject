@@ -24,6 +24,5 @@ module.exports = {
         useTabs: false,
       },
     ],
-    'react/prop-types': ['off'],
   },
 };
