@@ -4,9 +4,10 @@ import { useParams } from 'react-router-dom';
 import { FaPencilAlt, FaTrash } from 'react-icons/fa';
 
 import EditComment from './EditComment';
+import CommentInput from './CommentInput';
 
 const CommentList = () => {
-  const [getComment, setGetComment] = useState();
+  const [commentList, setCommentList] = useState();
   const [isEditMode, setIsEditMode] = useState(false);
 
   const param = useParams();
@@ -15,7 +16,7 @@ const CommentList = () => {
     const { data } = await axios.get(
       `http://localhost:3001/comment/?postId=${param.id}`,
     );
-    setGetComment(data);
+    setCommentList(data);
   };
 
   const deleteHandler = (comment) => {
@@ -41,10 +42,11 @@ const CommentList = () => {
 
   return (
     <div>
+      <CommentInput setCommentList={setCommentList} commentList={commentList} />
       {!isEditMode ? (
         <>
-          {getComment
-            ? getComment.map((comment) => (
+          {commentList
+            ? commentList.map((comment) => (
                 <div key={comment.id} className="flex justify-between mt-2">
                   <div className="flex">
                     <p className="font-semibold pr-2">
@@ -69,7 +71,9 @@ const CommentList = () => {
             : null}
         </>
       ) : (
-        <EditComment fetchComments={fetchComments} />
+        commentList.map((comment) => (
+          <EditComment key={comment.id} comment={comment} />
+        ))
       )}
     </div>
   );
