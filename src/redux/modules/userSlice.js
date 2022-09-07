@@ -22,16 +22,17 @@ export const __postSignup = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance
-        .post('/member/signup', payload, {
-          'Content-Type': 'application/json',
-          withCredentials: true,
-        })
+        .post('/member/signup', payload)
         .then((response) => {
-          console.log(response);
-          window.alert('회원가입이 완료되었습니다.');
-          document.location.href = '/login';
+          if (response.data.success === false) {
+            return window.alert(response.data.error.message);
+          } else {
+            console.log(response);
+            window.alert('회원가입이 완료되었습니다.');
+            document.location.href = '/login';
+            return thunkAPI.fulfillWithValue(data.data);
+          } // extra리듀서 비어있어도 됨
         });
-      return thunkAPI.fulfillWithValue(data.data); // extra리듀서 비어있어도 됨
     } catch (error) {
       console.log(error.code);
       return thunkAPI.rejectWithValue(error);
@@ -48,8 +49,6 @@ export const loginUserDB = (payload) => {
         if (response.data.success === false) {
           return window.alert(response.data.error.message);
         } else {
-          console.log('payload', payload);
-          console.log('response로 찍히는 결과값', response);
           const accessToken = response.headers.authorization.split(' ')[1];
           return (
             localStorage.setItem('token', response.headers.authorization),

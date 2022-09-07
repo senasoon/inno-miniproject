@@ -34,7 +34,7 @@ const Header = () => {
 
   return (
     <header className="h-14 w-screen bg-brown3 flex flex-row justify-between px-10 items-center">
-      <button onClick={moveMain}>로고</button>
+      <button onClick={moveMain}>로고!!</button>
       <div>
         {token() ? (
           <>

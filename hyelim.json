@@ -109,6 +109,12 @@
       "nickname": "닉네임4",
       "content": "여기에 댓글이 들어갑니다. 댓글을 작성할 수 있습니다.",
       "postId": 2
+    },
+    {
+      "nickname": "닉네임",
+      "content": "?",
+      "postId": "5",
+      "id": 5
     }
   ]
 }
