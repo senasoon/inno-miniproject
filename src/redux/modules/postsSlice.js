@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { postApi } from '../../shared/api/postApi';
+import instance from '../../shared/api';
+
+const refreshToken = localStorage.getItem('freshToken');
 
 const initialState = {
   posts: [],
@@ -11,7 +13,7 @@ export const __getPosts = createAsyncThunk(
   'postsSlice/GET_POSTS',
   async (payload, thunkAPI) => {
     try {
-      const data = await postApi.getPost();
+      const data = await instance.get('/post');
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -23,7 +25,12 @@ export const __addPosts = createAsyncThunk(
   'postsSlice/ADD_POSTS',
   async (payload, thunkAPI) => {
     try {
-      const data = await postApi.addPost(payload);
+      const data = await instance.post('/auth/post', payload, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Refresh-Token': refreshToken,
+        },
+      });
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -52,7 +59,7 @@ export const postsSlice = createSlice({
     },
     [__addPosts.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.posts.push(action.payload);
+      state.posts.data.push(action.payload.data);
     },
     [__addPosts.rejected]: (state, action) => {
       state.isLoading = false;
