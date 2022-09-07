@@ -16,6 +16,8 @@ const Card = () => {
   };
 
   const deleteHandler = async () => {
+    const refreshToken = localStorage.getItem('refresh-token');
+
     if (
       confirm('삭제된 데이터는 복구되지 않습니다. 게시글을 삭제 하시겠습니까?')
     )
@@ -23,7 +25,8 @@ const Card = () => {
         await axios.delete(`http://13.209.88.134/auth/post/${param.id}`, {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
-            authorization: `Bearer ${getCookie('token')}`,
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Refresh-Token': `${refreshToken}`,
           },
         });
         alert('게시글이 삭제되었습니다. 홈으로 이동합니다.');
@@ -37,13 +40,22 @@ const Card = () => {
 
   const editCardContent = async (edit) => {
     try {
-      await axios.put(`http://13.209.88.134/auth/post/${param.id}`, {
-        author: cardContent.author,
-        content: edit.content,
-        imgUrl: cardContent.imgUrl,
-        postId: cardContent.postId,
-        title: edit.title,
-      });
+      await axios.put(
+        `http://13.209.88.134/auth/post/${param.id}`,
+        {
+          author: cardContent.author,
+          content: edit.content,
+          imgUrl: cardContent.imgUrl,
+          postId: cardContent.postId,
+          title: edit.title,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        },
+      );
       alert('게시글이 수정 되었습니다.');
       resetCardContent();
     } catch (error) {
