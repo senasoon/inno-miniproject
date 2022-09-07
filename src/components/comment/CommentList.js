@@ -14,7 +14,7 @@ const CommentList = () => {
     const { data } = await axios.get(
       `http://13.209.88.134/comment/${param.id}`,
     );
-    setCommentList(data);
+    setCommentList(data.data);
   };
 
   useEffect(() => {

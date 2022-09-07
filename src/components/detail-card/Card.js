@@ -39,7 +39,6 @@ const Card = () => {
   };
 
   const editCardContent = async (edit) => {
-    console.log('new imgUrl', cardContent.imgUrl);
     try {
       await axios.put(
         `http://13.209.88.134/auth/post/${param.id}`,
@@ -59,7 +58,8 @@ const Card = () => {
       alert('게시글이 수정 되었습니다.');
       resetCardContent();
     } catch (error) {
-      alert(error.response.data.error.message);
+      // alert(error.response.data.error.message);
+      console.log(error);
     }
   };
 
