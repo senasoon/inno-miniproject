@@ -20,18 +20,22 @@ const Card = () => {
       confirm('삭제된 데이터는 복구되지 않습니다. 게시글을 삭제 하시겠습니까?')
     )
       try {
-        await axios.delete(`http://13.209.88.134/auth/post/${param.id}`);
+        await axios.delete(`http://13.209.88.134/auth/post/${param.id}`, {
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            authorization: `Bearer ${getCookie('token')}`,
+          },
+        });
         alert('게시글이 삭제되었습니다. 홈으로 이동합니다.');
         navigate('/');
       } catch (error) {
-        alert(error.response.data.error.message);
+        console.log(error);
+        // alert(error.response.data.error.message);
       }
     return;
   };
 
   const editCardContent = async (edit) => {
-    console.log('edit', edit);
-    console.log('cardContent', cardContent);
     try {
       await axios.put(`http://13.209.88.134/auth/post/${param.id}`, {
         author: cardContent.author,
@@ -68,7 +72,7 @@ const Card = () => {
       {isEditMode ? (
         <>
           <div className="flex justify-between">
-            <p className="py-2">{cardContent.nickname}</p>
+            <p className="py-2 font-semibold">{cardContent.author}님의 일상</p>
             <div>
               <button
                 onClick={() => {
@@ -118,7 +122,7 @@ const Card = () => {
       ) : (
         <>
           <div className="flex justify-between">
-            <p className="py-2">{cardContent.nickname}</p>
+            <p className="py-2 font-semibold">{cardContent.author}님의 일상</p>
             <div>
               <button
                 onClick={() => {
