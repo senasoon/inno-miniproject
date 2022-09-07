@@ -8,6 +8,8 @@ const SignUp = () => {
   const [id, setId] = useState('');
   const [password, setPw] = useState('');
   const [password2, setPw2] = useState('');
+  let [idCheck, setIdCheck] = useState(false);
+  let [pwCheck, setPwCheck] = useState(false);
 
   const signUpReq = useSelector((state) => state.users);
 
@@ -18,6 +20,15 @@ const SignUp = () => {
     if (id === '' || password === '' || password2 === '') {
       alert('빈칸없이 작성해주세요!');
       return;
+    } else if (password != password2) {
+      alert('동일한 비밀번호를 입력해주세요!');
+      return;
+    } else if (pwCheck < 0) {
+      alert('패스워드를 형식에 맞게 입력해주세요');
+      return;
+    } else if (password.length < 3) {
+      alert('패스워드를 4자이상 적어주세요!');
+      return;
     } else {
       dispatch(
         __postSignup({
@@ -26,26 +37,43 @@ const SignUp = () => {
           passwordConfirm: password2,
         }),
       );
+      console.log(signUpReq);
       signUpReq.error ? navigate('/login') : navigate('/signup');
     }
   };
 
-  let [idCheck, setIdCheck] = useState(false);
   const spe = id.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-  const eng = id.search(/^[a-zA-Z가-힣1-9]{3,10}$/);
+  //const eng = id.search(/^[a-zA-Z가-힣1-9]$/);
   useEffect(() => {
     if (id.length > 6 && id.length < 2) {
       setIdCheck(false);
     } else if (id.search(/\s/) != -1) {
+      document.getElementById('id').focus();
+      alert('닉네임에 빈칸을 입력하지 마세요');
       setIdCheck(false);
-    } else if (spe > 0 || eng < 0) {
-      setIdCheck(false);
-    } else if (id === null) {
+    } else if (spe > 0) {
+      document.getElementById('id').focus();
+      alert('닉네임에 특수문자가 있습니다.');
       setIdCheck(false);
     } else {
       setIdCheck(true);
     }
   }, [id]);
+  useEffect(() => {
+    if (password.length > 10) {
+      alert('비밀번호는 10자이하로 입력해주세요.');
+      document.getElementById('password').focus();
+      setPwCheck(false);
+    } else if (password.search(/\s/) != -1) {
+      document.getElementById('password').focus();
+      alert('비밀번호에 빈칸을 입력하지 마세요');
+      setPwCheck(false);
+    } else if (password === null) {
+      setPwCheck(false);
+    } else {
+      setPwCheck(true);
+    }
+  }, [password, password2]);
   return (
     <div className="pt-28 grid place-content-center grid-cols-6 gap-4">
       <div className="col-start-3 col-span-3 flex flex-col mt-30 max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
@@ -68,14 +96,14 @@ const SignUp = () => {
               </div>
               {!idCheck ? (
                 id === '' ? (
-                  <p className="text-sm">영문/한글 3자이상을 적어주세요!</p>
+                  <p className=""></p>
                 ) : (
                   <p className="text-red-600">
-                    비밀번호를 형식에 맞게 작성해주세요!
+                    닉네임을 형식에 맞게 작성해주세요!
                   </p>
                 )
               ) : (
-                <p className="text-green-700">좋은 닉네임입니다!</p>
+                <p className="text-sm">영문/한글 4자이상을 적어주세요!</p>
               )}
             </div>
 
