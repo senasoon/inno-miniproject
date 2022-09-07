@@ -10,7 +10,7 @@ const Form = () => {
   const [imgRead, setImgRead] = useState('');
   const [imgValue, setImgValue] = useState('');
   const [imgUrl, setImgUrl] = useState('');
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,13 +24,21 @@ const Form = () => {
   };
 
   const onSubmitHandler = () => {
+    if (title === '') {
+      setToggle('제목을 입력해주세요.');
+      return;
+    }
+    if (content === '') {
+      setToggle('내용을 입력해주세요.');
+      return;
+    }
     if (imgValue === '') {
-      setToggle(true);
+      setToggle('사진을 첨부해주세요.');
       return;
     }
 
     const formData = new FormData();
-    formData.append('img', imgUrl);
+    formData.append('multipartFile', imgUrl);
 
     const contents = {
       title: title,
@@ -41,10 +49,11 @@ const Form = () => {
       type: 'application/json',
     });
 
-    formData.append('data', blob);
+    formData.append('requestDto', blob);
 
     dispatch(__addPosts(formData));
     navigate('/');
+    setToggle('');
   };
 
   const onChangeImgHandler = (e) => {
@@ -62,7 +71,7 @@ const Form = () => {
   };
 
   return (
-    <form className="pt-24 grid place-content-center">
+    <form className="pt-8 grid place-content-center">
       <div className="w-80 h-max mb-10 bg-white shadow-md flex flex-col justify-center items-center">
         <button
           type="button"
@@ -79,14 +88,12 @@ const Form = () => {
             value={title}
             onChange={onChangeTitleHandler}
             className="m-2 p-1 w-60 border rounded-sm text-xs focus:outline-none focus:ring-1 focus:ring-brown1 focus:border-transparent"
-            required
           />
           <textarea
             placeholder="내용"
             value={content}
             onChange={onChangeContentHandler}
             className="m-2 p-1 w-60 h-24 border rounded-sm text-xs block whitespace-pre-wrap focus:outline-none focus:ring-1 focus:ring-brown1 focus:border-transparent"
-            required
           />
           <div>
             <label
@@ -111,9 +118,7 @@ const Form = () => {
             {imgRead && <img src={imgRead} className="w-64 h-54" />}
           </div>
         </div>
-        {toggle ? (
-          <span className="text-xs text-red-500">이미지를 첨부해주세요.</span>
-        ) : null}
+        {toggle ? <span className="text-xs text-red-500">{toggle}</span> : null}
         <button
           type="button"
           onClick={onSubmitHandler}
