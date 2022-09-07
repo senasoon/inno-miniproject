@@ -13,6 +13,7 @@ const Header = () => {
       cookies.remove('token');
       localStorage.removeItem('id');
       localStorage.removeItem('token');
+      localStorage.removeItem('freshToken');
       navigate('/');
     } else {
       navigate('/login');
@@ -32,7 +33,7 @@ const Header = () => {
   };
 
   return (
-    <header className="h-14 w-screen bg-brown3 flex flex-row justify-between px-10 items-center">
+    <header className="fixed inset-x-0 top-0 z-50 h-14 left-0 bg-brown3 flex flex-row justify-between px-10 items-center">
       <button onClick={moveMain}>로고</button>
       <div>
         {token() ? (

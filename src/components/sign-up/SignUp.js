@@ -32,7 +32,7 @@ const SignUp = () => {
 
   let [idCheck, setIdCheck] = useState(false);
   const spe = id.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-  const eng = id.search(/^[a-zA-Z가-힣]{3,10}$/);
+  const eng = id.search(/^[a-zA-Z가-힣1-9]{3,10}$/);
   useEffect(() => {
     if (id.length > 6 && id.length < 2) {
       setIdCheck(false);
