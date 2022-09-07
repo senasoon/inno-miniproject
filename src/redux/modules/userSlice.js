@@ -1,4 +1,6 @@
+/*eslint-disable */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 import jwtDecode from 'jwt-decode';
 import { setCookie, deleteCookie } from '../../shared/Cookie';
 import instance from '../../shared/api';
@@ -19,9 +21,11 @@ export const __postSignup = createAsyncThunk(
   'SIGNUP',
   async (payload, thunkAPI) => {
     try {
-      console.log(payload);
       const data = await instance
-        .post('/member/signup', payload)
+        .post('/member/signup', payload, {
+          'Content-Type': 'application/json',
+          withCredentials: true,
+        })
         .then((response) => {
           console.log(response);
           window.alert('회원가입이 완료되었습니다.');
@@ -49,6 +53,10 @@ export const loginUserDB = (payload) => {
           const accessToken = response.headers.authorization.split(' ')[1];
           return (
             localStorage.setItem('token', response.headers.authorization),
+            localStorage.setItem(
+              'freshToken',
+              response.headers['refresh-token'],
+            ),
             localStorage.setItem('id', response.data.data.nickname),
             setCookie('token', accessToken, {
               expires: new Date(jwtDecode(accessToken).exp * 1000),
