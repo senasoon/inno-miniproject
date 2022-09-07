@@ -30,7 +30,7 @@ const Form = () => {
     }
 
     const formData = new FormData();
-    formData.append('img', imgUrl);
+    formData.append('multipartFile', imgUrl);
 
     const contents = {
       title: title,
@@ -41,7 +41,7 @@ const Form = () => {
       type: 'application/json',
     });
 
-    formData.append('data', blob);
+    formData.append('requestDto', blob);
 
     dispatch(__addPosts(formData));
     navigate('/');
