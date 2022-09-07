@@ -30,8 +30,16 @@ const Card = () => {
   };
 
   const editCardContent = async (edit) => {
+    console.log('edit', edit);
+    console.log('cardContent', cardContent);
     try {
-      await axios.put(`http://13.209.88.134/auth/post/${param.id}`, edit);
+      await axios.put(`http://13.209.88.134/auth/post/${param.id}`, {
+        author: cardContent.author,
+        content: edit.content,
+        imgUrl: cardContent.imgUrl,
+        postId: cardContent.postId,
+        title: edit.title,
+      });
       alert('게시글이 수정 되었습니다.');
       resetCardContent();
     } catch (error) {

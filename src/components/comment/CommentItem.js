@@ -5,13 +5,17 @@ import axios from 'axios';
 
 import { FaCheck, FaArrowLeft } from 'react-icons/fa';
 import { FaPencilAlt, FaTrash } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 
 const CommentItem = ({ comment, commentList, setCommentList }) => {
   const [isEditMode, setIsEditMode] = useState(false);
+  const [editComment, setEditComment] = useState('');
+
+  const param = useParams();
 
   const deleteHandler = async (id) => {
     if (
-      confirm('삭제된 데이터는 복구되지 않습니다. 게시글을 삭제 하시겠습니까?')
+      confirm('삭제된 데이터는 복구되지 않습니다. 댓글을 삭제 하시겠습니까?')
     ) {
       {
         await axios.delete(`http://localhost:3001/comment/${id}`);
@@ -21,6 +25,29 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
       setCommentList([...newCommnet]);
     }
     return;
+  };
+
+  const editHandler = async (e) => {
+      try {
+      await axios.put(`http://localhost:3001/comment/${comment.id}`, {
+        id: comment.id,
+        nickname: comment.nickname,
+        content: editComment.content,
+        postId: comment.postId,
+      });
+      alert('댓글이 수정되었습니다.');
+      setIsEditMode(false);
+    } catch (error) {
+      // alert(error.response.data.error.message);
+      console.log(error);
+    }
+  };
+
+  const onChangeHandler = ({ target: { name, value } }) => {
+    setEditComment({
+      ...editComment,
+      [name]: value,
+    });
   };
 
   return (
@@ -57,9 +84,12 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
             <div className="flex">
               <p className="font-semibold pr-2">{comment.nickname}</p>
               <input
+                name="content"
                 type="text"
                 className="font-normal"
+                onChange={onChangeHandler}
                 defaultValue={comment.content}
+                autoFocus
               />
             </div>
             <div>
@@ -71,7 +101,11 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
               >
                 <FaArrowLeft />
               </button>
-              <button onClick={() => {}}>
+              <button
+                onClick={() => {
+                  editHandler();
+                }}
+              >
                 <FaCheck />
               </button>
             </div>
