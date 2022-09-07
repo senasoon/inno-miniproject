@@ -1,21 +1,29 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { __loginThunk } from '../../redux/modules/userSlice';
+import { loginUserDB } from '../../redux/modules/userSlice';
 
 const SignIn = () => {
   const dispatch = useDispatch();
 
-  const [id, setId] = useState('');
-  const [pw, setPw] = useState('');
+  // const REST_API_KEY = 'c8d279b58bba9f7549a870597a7ce804';
+  // const REDIRECT_URI = 'http://localhost:3000/auth/kakao/callback';
+  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  const memberId_ref = useRef(null);
+  const password_ref = useRef(null);
 
   const loginHandler = async () => {
-    await dispatch(
-      __loginThunk({
-        id,
-        password: pw,
-      }),
-    );
+    if (memberId_ref.current.value == '' || password_ref.current.value == '') {
+      window.alert('아이디와 비밀번호를 입력하세요');
+    } else {
+      await dispatch(
+        loginUserDB({
+          nickname: memberId_ref.current.value,
+          password: password_ref.current.value,
+        }),
+      );
+    }
   };
 
   return (
@@ -32,9 +40,7 @@ const SignIn = () => {
                 <input
                   type="text"
                   id="id"
-                  onChange={(event) => {
-                    setId(event.target.value);
-                  }}
+                  ref={memberId_ref}
                   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-brown1 focus:border-transparent"
                   required
                 />
@@ -46,9 +52,7 @@ const SignIn = () => {
                 <input
                   type="text"
                   id="password"
-                  onChange={(event) => {
-                    setPw(event.target.value);
-                  }}
+                  ref={password_ref}
                   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-brown1 focus:border-transparent"
                   required
                 />
@@ -65,6 +69,18 @@ const SignIn = () => {
             로그인
           </button>
         </div>
+        {/* <div>
+          <a href={KAKAO_AUTH_URL}>
+            <span
+              style={{
+                fontSize: '20px',
+                backgroundColor: 'yellow',
+              }}
+            >
+              카카오로그인
+            </span>
+          </a>
+        </div> */}
         <div className="flex items-center justify-center mt-6">
           <Link
             to={'/signup'}
