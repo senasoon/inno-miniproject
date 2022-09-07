@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import instance from '../../shared/api';
 
 import CommentItem from './CommentItem';
 import CommentInput from './CommentInput';
@@ -11,9 +11,7 @@ const CommentList = () => {
   const param = useParams();
 
   const fetchComments = async () => {
-    const { data } = await axios.get(
-      `http://13.209.88.134/comment/${param.id}`,
-    );
+    const { data } = await instance.get(`/comment/${param.id}`);
     setCommentList(data.data);
   };
 

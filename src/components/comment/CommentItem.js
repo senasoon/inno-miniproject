@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import instance from '../../shared/api';
 
 import { FaCheck, FaArrowLeft } from 'react-icons/fa';
 import { FaPencilAlt, FaTrash } from 'react-icons/fa';
@@ -10,17 +11,29 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [editComment, setEditComment] = useState('');
 
+  const refreshToken = localStorage.getItem('freshToken');
+  const options = {
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Refresh-Token': refreshToken,
+    },
+  };
+
   const deleteHandler = async (id) => {
-    if (
-      confirm('삭제된 데이터는 복구되지 않습니다. 댓글을 삭제 하시겠습니까?')
-    ) {
-      {
-        await axios.delete(`http://13.209.88.134/auth/comment/${id}`);
+    if (confirm('삭제된 데이터는 복구되지 않습니다. 댓글을 삭제 하시겠습니까?'))
+      try {
+        {
+          await instance.delete(`/auth/comment/${id}`, options);
+        }
+        const newComment = commentList.filter((comment) => {
+          return comment.id != id;
+        });
+        console.log('newComment', newComment);
+        setCommentList(newComment);
+        alert('삭제되었습니다.');
+      } catch (error) {
+        alert(error.response.data.error.message);
       }
-      alert('삭제되었습니다.');
-      const newCommnet = commentList.filter((comment) => comment.id !== id);
-      setCommentList([...newCommnet]);
-    }
     return;
   };
 
@@ -75,7 +88,7 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
               </button>
               <button
                 onClick={() => {
-                  deleteHandler(comment.id);
+                  deleteHandler(comment.commentId);
                 }}
               >
                 <FaTrash />
