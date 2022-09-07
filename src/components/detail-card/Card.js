@@ -9,6 +9,9 @@ const Card = () => {
 
   const param = useParams();
   const navigate = useNavigate();
+  const refreshToken = localStorage.getItem('freshToken');
+  const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('id');
 
   const fetchCard = async () => {
     const { data } = await axios.get(`http://13.209.88.134/post/${param.id}`);
@@ -16,8 +19,6 @@ const Card = () => {
   };
 
   const deleteHandler = async () => {
-    const refreshToken = localStorage.getItem('refresh-token');
-
     if (
       confirm('삭제된 데이터는 복구되지 않습니다. 게시글을 삭제 하시겠습니까?')
     )
@@ -25,34 +26,33 @@ const Card = () => {
         await axios.delete(`http://13.209.88.134/auth/post/${param.id}`, {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
-            authorization: `Bearer ${localStorage.getItem('token')}`,
-            'Refresh-Token': `${refreshToken}`,
+            Authorization: token,
+            'Refresh-Token': refreshToken,
           },
         });
         alert('게시글이 삭제되었습니다. 홈으로 이동합니다.');
         navigate('/');
       } catch (error) {
-        console.log(error);
-        // alert(error.response.data.error.message);
+        alert(error.response.data.error.message);
       }
     return;
   };
 
   const editCardContent = async (edit) => {
+    console.log('new imgUrl', cardContent.imgUrl);
     try {
       await axios.put(
         `http://13.209.88.134/auth/post/${param.id}`,
         {
-          author: cardContent.author,
+          ...cardContent,
           content: edit.content,
-          imgUrl: cardContent.imgUrl,
-          postId: cardContent.postId,
           title: edit.title,
         },
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
-            authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: token,
+            'Refresh-Token': refreshToken,
           },
         },
       );
@@ -136,17 +136,21 @@ const Card = () => {
           <div className="flex justify-between">
             <p className="py-2 font-semibold">{cardContent.author}님의 일상</p>
             <div>
-              <button
-                onClick={() => {
-                  setIsEditMode(true);
-                }}
-                className="p-2"
-              >
-                수정
-              </button>
-              <button onClick={deleteHandler} className="py-2">
-                삭제
-              </button>
+              {userId === cardContent.author ? (
+                <button
+                  onClick={() => {
+                    setIsEditMode(true);
+                  }}
+                  className="p-2"
+                >
+                  수정
+                </button>
+              ) : null}
+              {userId === cardContent.author ? (
+                <button onClick={deleteHandler} className="py-2">
+                  삭제
+                </button>
+              ) : null}
             </div>
           </div>
           <div className="overflow-hidden w-[25rem] h-[25rem]">
