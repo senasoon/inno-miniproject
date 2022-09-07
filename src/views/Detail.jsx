@@ -4,9 +4,11 @@ import Comment from '../components/comment/Comment';
 
 const Detail = () => {
   return (
-    <div className="flex mx-auto">
-      <Card />
-      <Comment />
+    <div className="flex">
+      <div className="flex mx-auto">
+        <Card />
+        <Comment />
+      </div>
     </div>
   );
 };

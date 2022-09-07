@@ -91,7 +91,7 @@ const Card = () => {
   };
 
   return (
-    <div className="card h-[34rem]">
+    <div className="card">
       {isEditMode ? (
         cardContent && (
           <>

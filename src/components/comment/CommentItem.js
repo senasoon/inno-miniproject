@@ -1,8 +1,8 @@
 /* eslint-disable */
 
 import React, { useState } from 'react';
-import axios from 'axios';
 import instance from '../../shared/api';
+import axios from 'axios';
 
 import { FaCheck, FaArrowLeft } from 'react-icons/fa';
 import { FaPencilAlt, FaTrash } from 'react-icons/fa';
@@ -18,6 +18,7 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
       'Refresh-Token': refreshToken,
     },
   };
+  const token = localStorage.getItem('token');
 
   const deleteHandler = async (id) => {
     if (confirm('삭제된 데이터는 복구되지 않습니다. 댓글을 삭제 하시겠습니까?'))
@@ -36,10 +37,10 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
     return;
   };
 
-  const editHandler = async (e) => {
+  const editHandler = async () => {
     try {
       await axios.put(
-        `http://13.209.88.134/auth/comment/${comment.id}`,
+        `http://13.209.88.134/auth/comment/${comment.commentId}`,
         {
           ...comment,
           content: editComment.content,
@@ -71,12 +72,12 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
     <div>
       {!isEditMode ? (
         <>
-          <div key={comment.id} className="flex justify-between mt-2">
+          <div className="flex justify-between mt-2">
             <div className="flex">
               <p className="font-semibold pr-2">{comment.nickname}</p>
               <p className="font-normal">{comment.content}</p>
             </div>
-            <div>
+            <div className="flex ">
               <button
                 className="mr-2"
                 onClick={() => {
@@ -97,7 +98,7 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
         </>
       ) : (
         <>
-          <div key={comment.id} className="flex justify-between mt-2">
+          <div className="flex justify-between mt-2">
             <div className="flex">
               <p className="font-semibold pr-2">{comment.nickname}</p>
               <input
@@ -120,7 +121,7 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
               </button>
               <button
                 onClick={() => {
-                  editHandler();
+                  editHandler(comment.commentId);
                 }}
               >
                 <FaCheck />
