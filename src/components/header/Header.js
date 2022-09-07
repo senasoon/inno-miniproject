@@ -12,6 +12,7 @@ const Header = () => {
     if (token() !== null) {
       cookies.remove('token');
       localStorage.removeItem('id');
+      localStorage.removeItem('token');
       navigate('/');
     } else {
       navigate('/login');
