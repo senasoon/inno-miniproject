@@ -5,20 +5,17 @@ import axios from 'axios';
 
 import { FaCheck, FaArrowLeft } from 'react-icons/fa';
 import { FaPencilAlt, FaTrash } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
 
 const CommentItem = ({ comment, commentList, setCommentList }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [editComment, setEditComment] = useState('');
-
-  const param = useParams();
 
   const deleteHandler = async (id) => {
     if (
       confirm('삭제된 데이터는 복구되지 않습니다. 댓글을 삭제 하시겠습니까?')
     ) {
       {
-        await axios.delete(`http://localhost:3001/comment/${id}`);
+        await axios.delete(`http://13.209.88.134/auth/comment/${id}`);
       }
       alert('삭제되었습니다.');
       const newCommnet = commentList.filter((comment) => comment.id !== id);
@@ -28,13 +25,21 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
   };
 
   const editHandler = async (e) => {
-      try {
-      await axios.put(`http://localhost:3001/comment/${comment.id}`, {
-        id: comment.id,
-        nickname: comment.nickname,
-        content: editComment.content,
-        postId: comment.postId,
-      });
+    try {
+      await axios.put(
+        `http://13.209.88.134/auth/comment/${comment.id}`,
+        {
+          ...comment,
+          content: editComment.content,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            Authorization: token,
+            'Refresh-Token': refreshToken,
+          },
+        },
+      );
       alert('댓글이 수정되었습니다.');
       setIsEditMode(false);
     } catch (error) {

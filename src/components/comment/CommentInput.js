@@ -8,16 +8,22 @@ const CommentInput = ({ commentList, setCommentList }) => {
   const [comment, setComment] = useState('');
 
   const param = useParams();
+  const refreshToken = localStorage.getItem('freshToken');
+  const token = localStorage.getItem('token');
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const { data } = await axios({
       method: 'post',
-      url: `http://localhost:3001/comment`,
+      url: `http://13.209.88.134/auth/comment`,
       data: {
-        nickname: '닉네임',
         content: comment,
         postId: param.id,
+      },
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: token,
+        'Refresh-Token': refreshToken,
       },
     });
     alert('댓글이 등록 되었습니다.');

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-// import { FaPencilAlt, FaTrash } from 'react-icons/fa';
 
 import CommentItem from './CommentItem';
 import CommentInput from './CommentInput';
@@ -13,7 +12,7 @@ const CommentList = () => {
 
   const fetchComments = async () => {
     const { data } = await axios.get(
-      `http://localhost:3001/comment/?postId=${param.id}`,
+      `http://13.209.88.134/comment/${param.id}`,
     );
     setCommentList(data);
   };
