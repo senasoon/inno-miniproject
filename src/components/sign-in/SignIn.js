@@ -6,10 +6,6 @@ import { loginUserDB } from '../../redux/modules/userSlice';
 const SignIn = () => {
   const dispatch = useDispatch();
 
-  // const REST_API_KEY = 'c8d279b58bba9f7549a870597a7ce804';
-  // const REDIRECT_URI = 'http://localhost:3000/auth/kakao/callback';
-  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
   const memberId_ref = useRef(null);
   const password_ref = useRef(null);
 
@@ -69,18 +65,6 @@ const SignIn = () => {
             로그인
           </button>
         </div>
-        {/* <div>
-          <a href={KAKAO_AUTH_URL}>
-            <span
-              style={{
-                fontSize: '20px',
-                backgroundColor: 'yellow',
-              }}
-            >
-              카카오로그인
-            </span>
-          </a>
-        </div> */}
         <div className="flex items-center justify-center mt-6">
           <Link
             to={'/signup'}

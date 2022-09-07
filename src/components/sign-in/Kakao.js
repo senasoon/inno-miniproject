@@ -24,10 +24,6 @@ const Kakao = () => {
     })
       .then((res) => {
         res.json();
-        //const kakaoAcc = res.kakao_account;
-        // setUser({
-        //   nickname: kakaoAcc.profile.nickname,
-        // });
       })
       .then((data) => {
         if (data.acccess_token) {
