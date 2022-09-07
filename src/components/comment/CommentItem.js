@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import instance from '../../shared/api';
-import axios from 'axios';
 
 import { FaCheck, FaArrowLeft } from 'react-icons/fa';
 import { FaPencilAlt, FaTrash } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 
 const CommentItem = ({ comment, commentList, setCommentList }) => {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -18,7 +18,6 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
       'Refresh-Token': refreshToken,
     },
   };
-  const token = localStorage.getItem('token');
 
   const deleteHandler = async (id) => {
     if (confirm('삭제된 데이터는 복구되지 않습니다. 댓글을 삭제 하시겠습니까?'))
@@ -37,24 +36,27 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
     return;
   };
 
-  const editHandler = async () => {
+  const editHandler = async (id) => {
     try {
-      await axios.put(
-        `http://13.209.88.134/auth/comment/${comment.commentId}`,
+      await instance.put(
+        `/auth/comment/${comment.commentId}`,
         {
           ...comment,
           content: editComment.content,
         },
-        {
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            Authorization: token,
-            'Refresh-Token': refreshToken,
-          },
-        },
+        options,
       );
       alert('댓글이 수정되었습니다.');
       setIsEditMode(false);
+      setCommentList(
+        commentList.map((comment) =>
+          comment.commentId === id
+            ? {
+                ...comment,
+              }
+            : comment,
+        ),
+      );
     } catch (error) {
       // alert(error.response.data.error.message);
       console.log(error);
