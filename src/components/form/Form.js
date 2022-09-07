@@ -10,7 +10,7 @@ const Form = () => {
   const [imgRead, setImgRead] = useState('');
   const [imgValue, setImgValue] = useState('');
   const [imgUrl, setImgUrl] = useState('');
-  const [toggle, setToggle] = useState('');
+  const [isValid, setIsValid] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,15 +25,15 @@ const Form = () => {
 
   const onSubmitHandler = () => {
     if (title === '') {
-      setToggle('제목을 입력해주세요.');
+      setIsValid('제목을 입력해주세요.');
       return;
     }
     if (content === '') {
-      setToggle('내용을 입력해주세요.');
+      setIsValid('내용을 입력해주세요.');
       return;
     }
     if (imgValue === '') {
-      setToggle('사진을 첨부해주세요.');
+      setIsValid('사진을 첨부해주세요.');
       return;
     }
 
@@ -53,13 +53,13 @@ const Form = () => {
 
     dispatch(__addPosts(formData));
     navigate('/');
-    setToggle('');
+    setIsValid('');
   };
 
   const onChangeImgHandler = (e) => {
     setImgValue(e.target.value);
     setImgUrl(e.target.files[0]);
-    setToggle(false);
+    setIsValid(false);
 
     let reader = new FileReader();
     reader.onload = function () {
@@ -118,7 +118,9 @@ const Form = () => {
             {imgRead && <img src={imgRead} className="w-64 h-54" />}
           </div>
         </div>
-        {toggle ? <span className="text-xs text-red-500">{toggle}</span> : null}
+        {isValid ? (
+          <span className="text-xs text-red-500">{isValid}</span>
+        ) : null}
         <button
           type="button"
           onClick={onSubmitHandler}
