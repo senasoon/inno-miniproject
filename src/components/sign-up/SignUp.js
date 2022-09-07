@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { __addUserThunk } from '../../redux/modules/userSlice';
+import { __postSignup } from '../../redux/modules/userSlice';
 
 const SignUp = () => {
   const [id, setId] = useState('');
@@ -20,22 +20,39 @@ const SignUp = () => {
       return;
     } else {
       dispatch(
-        __addUserThunk({
-          id,
+        __postSignup({
+          nickname: id,
           password,
+          passwordConfirm: password2,
         }),
       );
       signUpReq.error ? navigate('/login') : navigate('/signup');
     }
   };
 
+  let [idCheck, setIdCheck] = useState(false);
+  const spe = id.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+  const eng = id.search(/^[a-zA-Z가-힣]{3,10}$/);
+  useEffect(() => {
+    if (id.length > 6 && id.length < 2) {
+      setIdCheck(false);
+    } else if (id.search(/\s/) != -1) {
+      setIdCheck(false);
+    } else if (spe > 0 || eng < 0) {
+      setIdCheck(false);
+    } else if (id === null) {
+      setIdCheck(false);
+    } else {
+      setIdCheck(true);
+    }
+  }, [id]);
   return (
     <div className="pt-28 grid place-content-center grid-cols-6 gap-4">
-      <div className="col-start-3 col-span-3 place-items-center flex flex-col mt-30 max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
+      <div className="col-start-3 col-span-3 flex flex-col mt-30 max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
         <div className="self-center mb-6 text-xl font-bold text-gray-600 sm:text-2xl dark:text-white">
           회원가입
         </div>
-        <div className="mt-4">
+        <div className="mt-4 self-center w-3/4">
           <form action="#" autoComplete="off">
             <p className="text-gray-500 font-bold">닉네임</p>
             <div className="flex flex-col mb-8">
@@ -43,13 +60,25 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="id"
-                  className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-brown1 focus:border-transparent"
+                  className="w-30 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-brown1 focus:border-transparent"
                   onChange={(event) => {
                     setId(event.target.value);
                   }}
                 />
               </div>
+              {!idCheck ? (
+                id === '' ? (
+                  <p className="text-sm">영문/한글 3자이상을 적어주세요!</p>
+                ) : (
+                  <p className="text-red-600">
+                    비밀번호를 형식에 맞게 작성해주세요!
+                  </p>
+                )
+              ) : (
+                <p className="text-green-700">좋은 닉네임입니다!</p>
+              )}
             </div>
+
             <p className="text-gray-500 font-bold">비밀번호</p>
             <div className="flex flex-col mb-8">
               <div className="flex relative ">
@@ -79,10 +108,10 @@ const SignUp = () => {
                 password === '' && password2 === '' ? (
                   <></>
                 ) : (
-                  <p> 비밀번호가 일치합니다!! </p>
+                  <p className="text-green-700"> 비밀번호가 일치합니다!! </p>
                 )
               ) : (
-                <p> 비밀번호가 일치하지 않습니다! </p>
+                <p className="text-red-600"> 비밀번호가 일치하지 않습니다! </p>
               )}
             </div>
           </form>

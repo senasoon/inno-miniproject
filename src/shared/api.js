@@ -3,10 +3,9 @@ import { getCookie } from './Cookie';
 import { parseJWTToken } from './JWT';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://13.209.88.134',
 });
-//성준님 주소
-//http://54.180.155.72/api
+
 const accessToken = getCookie('token');
 instance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
