@@ -11,27 +11,40 @@ const Card = () => {
   const navigate = useNavigate();
 
   const fetchCard = async () => {
-    const { data } = await axios.get(`http://localhost:3001/post/${param.id}`);
+    const { data } = await axios.get(`http://13.209.88.134/post/${param.id}`);
     setCardContent(data);
   };
 
-  const deleteHandler = () => {
+  const deleteHandler = async () => {
     if (
       confirm('삭제된 데이터는 복구되지 않습니다. 게시글을 삭제 하시겠습니까?')
-    ) {
-      {
-        axios.delete(`http://localhost:3001/post/${param.id}`);
+    )
+      try {
+        await axios.delete(`http://13.209.88.134/auth/post/${param.id}`);
+        alert('게시글이 삭제되었습니다. 홈으로 이동합니다.');
+        navigate('/');
+      } catch (error) {
+        alert(error.response.data.error.message);
       }
-      alert('삭제되었습니다. 홈으로 이동합니다.');
-      navigate('/');
-    }
     return;
   };
 
   const editCardContent = async (edit) => {
-    await axios.patch(`http://localhost:3001/post/${param.id}`, edit);
-    alert('게시글이 수정 되었습니다.');
-    resetCardContent();
+    console.log('edit', edit);
+    console.log('cardContent', cardContent);
+    try {
+      await axios.put(`http://13.209.88.134/auth/post/${param.id}`, {
+        author: cardContent.author,
+        content: edit.content,
+        imgUrl: cardContent.imgUrl,
+        postId: cardContent.postId,
+        title: edit.title,
+      });
+      alert('게시글이 수정 되었습니다.');
+      resetCardContent();
+    } catch (error) {
+      alert(error.response.data.error.message);
+    }
   };
 
   const resetCardContent = () => {
@@ -55,7 +68,7 @@ const Card = () => {
       {isEditMode ? (
         <>
           <div className="flex justify-between">
-            <p className="py-2">{cardContent.nickName}</p>
+            <p className="py-2">{cardContent.nickname}</p>
             <div>
               <button
                 onClick={() => {
@@ -105,7 +118,7 @@ const Card = () => {
       ) : (
         <>
           <div className="flex justify-between">
-            <p className="py-2">{cardContent.nickName}</p>
+            <p className="py-2">{cardContent.nickname}</p>
             <div>
               <button
                 onClick={() => {
@@ -123,7 +136,7 @@ const Card = () => {
           <div className="overflow-hidden w-[25rem] h-[25rem]">
             <img
               src={cardContent.imgUrl}
-              alt="닉네임이 등록한 이미지"
+              alt={cardContent.title}
               className="w-full h-full object-cover"
             />
           </div>
