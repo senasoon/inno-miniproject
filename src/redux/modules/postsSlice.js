@@ -59,11 +59,18 @@ export const postsSlice = createSlice({
     },
     [__addPosts.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.posts.data.push(action.payload.data);
+      if (action.payload.error) {
+        alert('글 등록에 실패했습니다.');
+        document.location.href = '/';
+      } else {
+        state.posts.data.push(action.payload.data);
+      }
     },
     [__addPosts.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+      alert(action.payload.error);
+      document.location.href = '/';
     },
   },
 });
