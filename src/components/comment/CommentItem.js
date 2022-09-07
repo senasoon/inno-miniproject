@@ -26,11 +26,10 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
           await instance.delete(`/auth/comment/${id}`, options);
         }
         const newComment = commentList.filter((comment) => {
-          return comment.id != id;
+          return comment.commentId !== id;
         });
-        console.log('newComment', newComment);
-        setCommentList(newComment);
         alert('삭제되었습니다.');
+        setCommentList(newComment);
       } catch (error) {
         alert(error.response.data.error.message);
       }

@@ -25,7 +25,7 @@ const CommentList = () => {
       {commentList
         ? commentList.map((comment) => (
             <CommentItem
-              key={comment.id}
+              key={comment.commentId}
               comment={comment}
               commentList={commentList}
               setCommentList={setCommentList}
