@@ -21,6 +21,7 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
     },
   };
 
+  // 댓글 삭제
   const deleteHandler = async (id) => {
     if (confirm('삭제된 데이터는 복구되지 않습니다. 댓글을 삭제 하시겠습니까?'))
       try {
@@ -38,6 +39,7 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
     return;
   };
 
+  // 댓글 수정
   const editHandler = async (id) => {
     try {
       await instance.put(
