@@ -8,7 +8,7 @@ const initialState = {
   isLoading: false,
   error: null,
 };
-
+// 전체 게시물 불러오기
 export const __getPosts = createAsyncThunk(
   'postsSlice/GET_POSTS',
   async (payload, thunkAPI) => {
@@ -20,7 +20,7 @@ export const __getPosts = createAsyncThunk(
     }
   },
 );
-
+// 게시글 등록
 export const __addPosts = createAsyncThunk(
   'postsSlice/ADD_POSTS',
   async (payload, thunkAPI) => {

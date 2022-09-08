@@ -13,10 +13,12 @@ const CardList = () => {
 
   const { isLoading, error, posts } = useSelector((state) => state.posts);
 
+  // 로딩 화면
   if (isLoading) {
     return <div className="text-center text-brown1">로딩 중....</div>;
   }
 
+  // 에러 화면
   if (error) {
     return <div className="text-center text-brown1">{error.message}</div>;
   }
