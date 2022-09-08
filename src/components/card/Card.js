@@ -14,11 +14,13 @@ const Card = ({ postId, title, imgUrl }) => {
   const navigate = useNavigate();
   return (
     <div className="bg-white w-48 h-56 shadow-md">
-      <img
-        onClick={() => navigate(`/detail/${postId}`)}
-        src={imgUrl}
-        className="mt-4 w-40 h-40 m-auto bg-cover cursor-pointer"
-      />
+      <div className="m-auto w-40 h-40">
+        <img
+          onClick={() => navigate(`/detail/${postId}`)}
+          src={imgUrl}
+          className="mt-4 w-full h-full m-auto cursor-pointer object-cover"
+        />
+      </div>
       <div className="flex justify-between mx-4 h-12 items-center">
         <p className="text-xs">{title}</p>
         <button
