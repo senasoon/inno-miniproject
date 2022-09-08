@@ -75,7 +75,7 @@ const SignUp = () => {
     }
   }, [password, password2]);
   return (
-    <div className="pt-28 grid place-content-center grid-cols-6 gap-4">
+    <div className="pt-12 pb-8 grid place-content-center grid-cols-6 gap-4">
       <div className="col-start-3 col-span-3 flex flex-col mt-30 max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
         <div className="self-center mb-6 text-xl font-bold text-gray-600 sm:text-2xl dark:text-white">
           회원가입
