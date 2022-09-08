@@ -5,7 +5,7 @@
 PICAIVE는 사진으로 **일상을 공유하는 서비스** 입니다.  
 다른 사람의 일상을 구경할 수 있고, 댓글을 달 수도 있습니다.   
 여러분의 일상을 자유롭게 올려보세요!  
-**[PICAIVE 서비스 구경하러 가기](http://inno-test-bucket-test.s3-website.ap-northeast-2.amazonaws.com/)**
+**[PICAIVE 서비스 구경하러 가기](http://picaivegallery.s3-website.ap-northeast-2.amazonaws.com/)**
 
 ## 서비스 구성도
 - (메인) 등록된 게시글 불러오기
