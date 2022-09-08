@@ -4,7 +4,7 @@ import CommentList from './CommentList';
 
 const Comment = () => {
   return (
-    <div className="card w-[34rem] h-[34rem]">
+    <div className="card min-w-[34rem] max-w-[34rem]">
       <CommentList />
     </div>
   );
