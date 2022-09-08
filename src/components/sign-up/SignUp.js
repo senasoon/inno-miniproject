@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { __postSignup } from '../../redux/modules/userSlice';
@@ -26,7 +25,7 @@ const SignUp = () => {
     } else if (pwCheck < 0) {
       alert('패스워드를 형식에 맞게 입력해주세요');
       return;
-    } else if (password.length < 3) {
+    } else if (password.length < 4) {
       alert('패스워드를 4자이상 적어주세요!');
       return;
     } else {
@@ -43,7 +42,7 @@ const SignUp = () => {
   };
 
   const spe = id.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-  //const eng = id.search(/^[a-zA-Z가-힣1-9]$/);
+  const eng = id.search(/^[a-zA-Z가-힣1-9]{4,11}$/);
   useEffect(() => {
     if (id.length > 6 && id.length < 2) {
       setIdCheck(false);
@@ -54,6 +53,8 @@ const SignUp = () => {
     } else if (spe > 0) {
       document.getElementById('id').focus();
       alert('닉네임에 특수문자가 있습니다.');
+      setIdCheck(false);
+    } else if (eng < 0) {
       setIdCheck(false);
     } else {
       setIdCheck(true);
@@ -96,14 +97,14 @@ const SignUp = () => {
               </div>
               {!idCheck ? (
                 id === '' ? (
-                  <p className=""></p>
+                  <p className="text-sm">영문/한글 4자이상을 적어주세요!</p>
                 ) : (
                   <p className="text-red-600">
                     닉네임을 형식에 맞게 작성해주세요!
                   </p>
                 )
               ) : (
-                <p className="text-sm">영문/한글 4자이상을 적어주세요!</p>
+                <p className="text-green-700">좋은닉네임이네요!</p>
               )}
             </div>
 
@@ -133,8 +134,11 @@ const SignUp = () => {
                 />
               </div>
               {password === password2 ? (
-                password === '' && password2 === '' ? (
-                  <></>
+                password === '' &&
+                password2 === '' &&
+                password.length < 4 &&
+                password2.length < 4 ? (
+                  <p className="text-xs">비밀번호는 4자이상입니다</p>
                 ) : (
                   <p className="text-green-700"> 비밀번호가 일치합니다!! </p>
                 )
