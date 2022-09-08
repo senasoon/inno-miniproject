@@ -28,7 +28,7 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
   };
 
   const editHandler = async (e) => {
-      try {
+    try {
       await axios.put(`http://localhost:3001/comment/${comment.id}`, {
         id: comment.id,
         nickname: comment.nickname,
