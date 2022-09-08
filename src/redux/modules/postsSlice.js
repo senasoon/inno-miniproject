@@ -63,7 +63,7 @@ export const postsSlice = createSlice({
         alert('글 등록에 실패했습니다.');
         document.location.href = '/';
       } else {
-        state.posts.data.push(action.payload.data);
+        state.posts.data.unshift(action.payload.data);
       }
     },
     [__addPosts.rejected]: (state, action) => {
