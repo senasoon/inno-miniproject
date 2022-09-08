@@ -1,8 +1,5 @@
-/*eslint-disable */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
-import jwtDecode from 'jwt-decode';
-import { setCookie, deleteCookie } from '../../shared/Cookie';
+import { setCookie } from '../../shared/Cookie';
 import instance from '../../shared/api';
 
 const initialState = {
@@ -11,11 +8,6 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
 };
-
-export const logoutUserThunk = createAsyncThunk('LOGOUT_USER', () => {
-  deleteCookie('token');
-  return (document.location.href = '/');
-});
 
 export const __postSignup = createAsyncThunk(
   'SIGNUP',
@@ -31,7 +23,7 @@ export const __postSignup = createAsyncThunk(
             window.alert('회원가입이 완료되었습니다.');
             document.location.href = '/login';
             return thunkAPI.fulfillWithValue(data.data);
-          } // extra리듀서 비어있어도 됨
+          }
         });
     } catch (error) {
       console.log(error.code);
@@ -47,6 +39,7 @@ export const loginUserDB = (payload) => {
       .post('/member/login', payload)
       .then((response) => {
         if (response.data.success === false) {
+          document.getElementById('id').focus();
           return window.alert(response.data.error.message);
         } else {
           const accessToken = response.headers.authorization.split(' ')[1];
@@ -57,9 +50,7 @@ export const loginUserDB = (payload) => {
               response.headers['refresh-token'],
             ),
             localStorage.setItem('id', response.data.data.nickname),
-            setCookie('token', accessToken, {
-              expires: new Date(jwtDecode(accessToken).exp * 1000),
-            }),
+            setCookie('token', accessToken),
             alert(`${localStorage.id}님 로그인 성공!`),
             (document.location.href = '/')
           );

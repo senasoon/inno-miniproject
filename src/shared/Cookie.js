@@ -2,6 +2,7 @@ import { Cookies } from 'react-cookie';
 
 const cookies = new Cookies();
 
+/*---쿠키 설정(하루)--- */
 export const setCookie = (name, value) => {
   return cookies.set(name, value, {
     path: '/',
