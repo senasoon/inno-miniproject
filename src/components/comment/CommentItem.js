@@ -11,6 +11,7 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [editComment, setEditComment] = useState('');
 
+  const param = useParams();
   const refreshToken = localStorage.getItem('freshToken');
   const options = {
     headers: {
@@ -39,9 +40,9 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
   const editHandler = async (id) => {
     try {
       await instance.put(
-        `/auth/comment/${comment.commentId}`,
+        `auth/comment/${comment.commentId}`,
         {
-          ...comment,
+          postId: Number(param.id),
           content: editComment.content,
         },
         options,
@@ -53,13 +54,13 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
           comment.commentId === id
             ? {
                 ...comment,
+                content: editComment.content,
               }
             : comment,
         ),
       );
     } catch (error) {
-      // alert(error.response.data.error.message);
-      console.log(error);
+      alert(error.response.data.error.message);
     }
   };
 
