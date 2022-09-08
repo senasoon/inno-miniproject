@@ -7,10 +7,10 @@ import { useNavigate } from 'react-router-dom';
 const Form = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [imgRead, setImgRead] = useState('');
-  const [imgValue, setImgValue] = useState('');
-  const [imgUrl, setImgUrl] = useState('');
-  const [isValid, setIsValid] = useState('');
+  const [imgRead, setImgRead] = useState(''); // 이미지 미리보기
+  const [imgValue, setImgValue] = useState(''); // 이미지 파일명 읽기
+  const [imgUrl, setImgUrl] = useState(''); //  이미지 서버 전송
+  const [isValid, setIsValid] = useState(''); // input 유효검사
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ const Form = () => {
     setContent(e.target.value);
   };
 
+  // 게시글 등록
   const onSubmitHandler = () => {
     if (title === '') {
       setIsValid('제목을 입력해주세요.');
@@ -56,6 +57,7 @@ const Form = () => {
     setIsValid('');
   };
 
+  // 이미지 수정값
   const onChangeImgHandler = (e) => {
     setImgValue(e.target.value);
     setImgUrl(e.target.files[0]);
