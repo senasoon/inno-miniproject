@@ -36,7 +36,6 @@ const SignUp = () => {
           passwordConfirm: password2,
         }),
       );
-      console.log(signUpReq);
       signUpReq.error ? navigate('/login') : navigate('/signup');
     }
   };
@@ -107,12 +106,11 @@ const SignUp = () => {
                 <p className="text-green-700">좋은닉네임이네요!</p>
               )}
             </div>
-
             <p className="text-gray-500 font-bold">비밀번호</p>
             <div className="flex flex-col mb-8">
               <div className="flex relative ">
                 <input
-                  type="text"
+                  type="password"
                   id="password"
                   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-brown1 focus:border-transparent"
                   onChange={(event) => {
@@ -125,7 +123,7 @@ const SignUp = () => {
             <div className="flex flex-col mb-8">
               <div className="flex relative">
                 <input
-                  type="text"
+                  type="password"
                   id="password2"
                   className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-brown1 focus:border-transparent"
                   onChange={(event) => {

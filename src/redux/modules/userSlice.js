@@ -19,14 +19,13 @@ export const __postSignup = createAsyncThunk(
           if (response.data.success === false) {
             return window.alert(response.data.error.message);
           } else {
-            console.log(response);
             window.alert('회원가입이 완료되었습니다.');
             document.location.href = '/login';
             return thunkAPI.fulfillWithValue(data.data);
           }
         });
     } catch (error) {
-      console.log(error.code);
+      alert(error.response.data.error.message);
       return thunkAPI.rejectWithValue(error);
     }
   },
@@ -56,8 +55,8 @@ export const loginUserDB = (payload) => {
           );
         }
       })
-      .catch((response) => {
-        console.log(response);
+      .catch((error) => {
+        alert(error.response.data.error.message);
       });
   };
 };
