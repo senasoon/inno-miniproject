@@ -11,6 +11,7 @@ const CommentInput = ({ commentList, setCommentList }) => {
   const refreshToken = localStorage.getItem('freshToken');
   const token = localStorage.getItem('token');
 
+  // 댓글 등록
   const onSubmit = async (e) => {
     e.preventDefault();
     try {

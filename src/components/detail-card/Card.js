@@ -16,6 +16,7 @@ const Card = () => {
   const refreshToken = localStorage.getItem('freshToken');
   const userId = localStorage.getItem('id');
 
+  // api 요청시 공통 헤더값
   const options = {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
@@ -23,11 +24,13 @@ const Card = () => {
     },
   };
 
+  // 게시글 조회
   const fetchCard = async () => {
     const { data } = await instance.get(`/post/${param.id}`);
     setCardContent(data);
   };
 
+  // 게시글 삭제
   const deleteHandler = async () => {
     if (
       confirm('삭제된 데이터는 복구되지 않습니다. 게시글을 삭제 하시겠습니까?')
@@ -42,6 +45,7 @@ const Card = () => {
     return;
   };
 
+  // 게시글 수정
   const editCardContent = async () => {
     const payload = new FormData();
     payload.append('multipartFile', imgFile);
@@ -79,6 +83,7 @@ const Card = () => {
     });
   };
 
+  // 이미지 수정값
   const onChangeImgHandler = (e) => {
     setFileImgPath(e.target.value);
     setImgFile(e.target.files[0]);
@@ -94,6 +99,7 @@ const Card = () => {
 
   return (
     <div className="card">
+      {/* 게시글 수정 */}
       {isEditMode ? (
         cardContent && (
           <>
@@ -161,6 +167,7 @@ const Card = () => {
               />
             </form>
           </>
+          // 게시글 수정 끝
         )
       ) : (
         <>

@@ -10,6 +10,7 @@ const CommentList = () => {
 
   const param = useParams();
 
+  // 댓글 조회
   const fetchComments = async () => {
     const { data } = await instance.get(`/comment/${param.id}`);
     setCommentList(data.data);
