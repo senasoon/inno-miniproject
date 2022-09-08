@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import instance from '../../shared/api';
+import { FaCheck, FaArrowLeft } from 'react-icons/fa';
+import { FaPencilAlt, FaTrash } from 'react-icons/fa';
 
 const Card = () => {
   const [cardContent, setCardContent] = useState({});
@@ -106,10 +108,10 @@ const Card = () => {
                   }}
                   className="p-2"
                 >
-                  취소
+                  <FaArrowLeft />
                 </button>
                 <button onClick={editCardContent} className="py-2">
-                  완료
+                  <FaCheck />
                 </button>
               </div>
             </div>
@@ -121,7 +123,6 @@ const Card = () => {
               />
             </div>
             <form>
-              {/* 이미지 편집 */}
               <div>
                 <label
                   htmlFor="imgUrl"
@@ -141,7 +142,6 @@ const Card = () => {
                   className="absolute w-0 h-0 p-0 border-0 overflow-hidden"
                 />
               </div>
-              {/* 이미지 편집 끝 */}
               <input
                 name="title"
                 type="text"
@@ -150,7 +150,7 @@ const Card = () => {
                 placeholder="수정할 제목을 입력해주세요."
                 onChange={onChangeHandler}
               />
-              <input
+              <textarea
                 name="content"
                 type="text"
                 value={cardContent.content}
@@ -174,12 +174,12 @@ const Card = () => {
                   }}
                   className="p-2"
                 >
-                  수정
+                  <FaPencilAlt />
                 </button>
               ) : null}
               {userId === cardContent.author ? (
                 <button onClick={deleteHandler} className="py-2">
-                  삭제
+                  <FaTrash />
                 </button>
               ) : null}
             </div>

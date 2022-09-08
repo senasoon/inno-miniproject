@@ -12,6 +12,7 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
   const [editComment, setEditComment] = useState('');
 
   const param = useParams();
+  const userId = localStorage.getItem('id');
   const refreshToken = localStorage.getItem('freshToken');
   const options = {
     headers: {
@@ -80,23 +81,25 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
               <p className="font-semibold pr-2">{comment.nickname}</p>
               <p className="font-normal">{comment.content}</p>
             </div>
-            <div className="flex ">
-              <button
-                className="mr-2"
-                onClick={() => {
-                  setIsEditMode(true);
-                }}
-              >
-                <FaPencilAlt />
-              </button>
-              <button
-                onClick={() => {
-                  deleteHandler(comment.commentId);
-                }}
-              >
-                <FaTrash />
-              </button>
-            </div>
+            {userId === comment.nickname ? (
+              <div className="flex">
+                <button
+                  className="mr-2"
+                  onClick={() => {
+                    setIsEditMode(true);
+                  }}
+                >
+                  <FaPencilAlt />
+                </button>
+                <button
+                  onClick={() => {
+                    deleteHandler(comment.commentId);
+                  }}
+                >
+                  <FaTrash />
+                </button>
+              </div>
+            ) : null}
           </div>
         </>
       ) : (
@@ -113,7 +116,7 @@ const CommentItem = ({ comment, commentList, setCommentList }) => {
                 autoFocus
               />
             </div>
-            <div>
+            <div className="flex">
               <button
                 className="mr-2"
                 onClick={() => {
